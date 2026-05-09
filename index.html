@@ -15,6 +15,8 @@
         .logo-container { width: 90px; height: 90px; background: #000; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.4); border: 3px solid #fff; padding: 5px; overflow: hidden; }
         .logo-img { max-width: 100%; max-height: 100%; object-fit: contain; }
         .btn-submit { background: #ff6600; color: #fff; border-radius: 12px; font-weight: 800; padding: 15px; border: none; width: 100%; transition: 0.3s; }
+        
+        /* Voucher Design */
         #voucherSection { position: fixed; left: -9999px; top: 0; }
         .voucher-box { background: #fff; width: 400px; color: #333; overflow: hidden; border-radius: 20px; }
         .v-top { background: #ff6600; color: #fff; padding: 25px; text-align: center; }
@@ -24,8 +26,11 @@
         .cut-left { left: -17px; } .cut-right { right: -17px; }
         .v-bottom-wrap { padding: 25px 30px 30px 30px; text-align: center; border-top: 1px dashed #ccc; }
         .v-promo-list { text-align: left; background: #fff5f2; padding: 15px; border-radius: 10px; font-size: 13px; border: 1px solid #ffd8c4; }
+        
+        /* Final Container */
         #finalImageContainer { display: none; text-align: center; }
-        #finalImage { max-width: 100%; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
+        #finalImage { max-width: 100%; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); border: 2px solid #ff6600; }
+        .instruction-box { background: rgba(255,102,0,0.1); border: 1px dashed #ff6600; border-radius: 15px; padding: 15px; margin-top: 20px; }
         .spinner { display: none; width: 25px; height: 25px; border: 3px solid #fff; border-radius: 50%; border-top-color: transparent; animation: spin 0.8s linear infinite; margin: 0 auto; }
         @keyframes spin { to { transform: rotate(360deg); } }
     </style>
@@ -45,19 +50,20 @@
                 <div class="form-group"><label class="small font-weight-bold text-muted">WHATSAPP</label><input type="tel" name="hp" class="form-control" placeholder="08xxxxxxxx" required></div>
                 <div class="form-group"><label class="small font-weight-bold text-muted">TANGGAL LAHIR</label><input type="date" name="tgl_lahir" class="form-control" required></div>
                 <div class="form-group"><label class="small font-weight-bold text-muted">PEKERJAAN</label><input type="text" name="pekerjaan" class="form-control" placeholder="Contoh: Mahasiswa / Karyawan" required></div>
-                <button type="submit" id="btnSubmit" class="btn-submit mt-3">
+                <button type="submit" id="btnSubmit" class="btn-submit mt-3 shadow">
                     <span id="btnText">DAFTAR & AMBIL HADIAH</span>
                     <div id="spinner" class="spinner"></div>
                 </button>
             </form>
         </div>
     </div>
+
     <div id="voucherSection">
         <div id="captureArea" class="voucher-box">
             <div class="v-top">
                 <div class="logo-container" style="width:60px; height:60px; margin-bottom:5px; border:2px solid #fff;"><img src="https://lh3.googleusercontent.com/d/10pxYP4lO10SQxGrjLpfSr1yIatsftgkq" class="logo-img"></div>
                 <h6 class="font-weight-bold mb-0">MEMBERSHIP VOUCHER</h6>
-                <p style="font-size: 10px; margin:0;">Seblak Salah Indonesia</p>
+                <p style="font-size: 10px; margin:0;">Seblak Salah Lamongan</p>
             </div>
             <div class="v-middle-wrap text-center">
                 <p class="mb-1 small">Halo, <b id="resNama"></b>!</p>
@@ -72,31 +78,55 @@
             </div>
         </div>
     </div>
+
     <div id="finalImageContainer">
-        <h5 class="text-center font-weight-bold text-success mb-3">SELAMAT DATANG! ✅</h5>
-        <img id="finalImage">
-        <p class="text-center mt-3 small text-white-50">Simpan gambar voucher ini dan tunjukkan ke kasir.</p>
+        <h5 class="text-center font-weight-bold text-success mb-3">PENDAFTARAN BERHASIL! ✅</h5>
+        
+        <img id="finalImage" class="img-fluid">
+        
+        <div class="instruction-box">
+            <h6 class="font-weight-bold text-warning mb-2">📸 CARA SIMPAN VOUCHER:</h6>
+            <p class="small mb-0 text-white">
+                Tekan dan **Tahan Lama** pada gambar voucher di atas, lalu pilih menu **"Download Gambar"** atau **"Simpan Gambar"**.
+            </p>
+        </div>
+
+        <p class="text-center mt-4 small text-white-50">Tunjukkan hasil simpanan gambar tersebut ke kasir untuk klaim hadiah Anda.</p>
         <button onclick="location.reload()" class="btn btn-sm btn-outline-light mt-2">Daftar Member Lain</button>
     </div>
 </div>
+
 <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxYWWjEPsnPRtOdlUUJJSvcwAG91hTq2t6VXay6hi6wuSlOH8FoGEYDppb8_OCsnOvQ/exec';
+    
     document.getElementById('formDaftar').addEventListener('submit', e => {
         e.preventDefault();
         document.getElementById('btnText').style.display = 'none';
         document.getElementById('spinner').style.display = 'block';
+        document.getElementById('btnSubmit').disabled = true;
+
         fetch(scriptURL, { method: 'POST', body: new FormData(e.target)})
         .then(res => res.json())
         .then(res => {
             document.getElementById('resNama').innerText = res.nama.toUpperCase();
             document.getElementById('resKode').innerText = res.kode;
             document.getElementById('formSection').style.display = 'none';
+            
             setTimeout(() => {
-                html2canvas(document.getElementById('captureArea'), { scale: 3, useCORS: true }).then(canvas => {
+                html2canvas(document.getElementById('captureArea'), { 
+                    scale: 3, 
+                    useCORS: true,
+                    allowTaint: false 
+                }).then(canvas => {
                     document.getElementById('finalImage').src = canvas.toDataURL("image/png");
                     document.getElementById('finalImageContainer').style.display = 'block';
+                    window.scrollTo(0,0);
                 });
             }, 600);
+        })
+        .catch(error => {
+            alert('Koneksi sibuk, silakan coba lagi.');
+            location.reload();
         });
     });
 </script>
