@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Launching Mie Kuah - Seblak Salah</title>
+    <title>Launching Promo - Seblak Salah</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -39,8 +39,8 @@
 
 <div class="main-container">
     <div class="text-center mb-4 mt-3">
-        <h2 class="font-weight-bold" style="color: #ff6600; letter-spacing: 1px;">LAUNCHING MIE KUAH!</h2>
-        <p class="small text-white-50">Beli All Varian Mie Kuah, <b>GRATIS Mie Cerewet!</b></p>
+        <h2 class="font-weight-bold" style="color: #ff6600; letter-spacing: 1px;">SPESIAL PROMO! 🔥</h2>
+        <p class="small text-white-50">Beli Menu Utama Apa Saja,<br><b>GRATIS Mie Cerewet!</b></p>
     </div>
 
     <div id="mainForm" class="card-promo shadow-lg">
@@ -74,7 +74,7 @@
             </div>
 
             <button type="submit" id="btnSubmit" class="btn-submit shadow">KLAIM VOUCHER SEKARANG</button>
-            <p class="text-center mt-3 mb-0 small text-muted" style="font-size: 10px;">*Terbatas 50 Porsi/Hari (Periode 14-15 Mei 2026)</p>
+            <p class="text-center mt-3 mb-0 small text-muted" style="font-size: 10px;">*Berlaku untuk Menu Utama (Seblak/Bakso Aci/All Mie)<br>Terbatas 50 Porsi/Hari (14-15 Mei 2026)</p>
         </form>
     </div>
 
@@ -84,10 +84,10 @@
         
         <div class="instruction">
             <h6 class="font-weight-bold text-warning mb-2">📸 CARA SIMPAN VOUCHER:</h6>
-            <p class="mb-0 text-white">Tekan dan <b>Tahan Lama</b> pada gambar voucher di atas, lalu pilih <b>"Simpan Gambar"</b> atau <b>"Download Gambar"</b>.</p>
+            <p class="mb-0 text-white">Tekan dan <b>Tahan Lama</b> pada gambar voucher di atas, lalu pilih <b>"Simpan Gambar"</b>.</p>
         </div>
         
-        <p class="mt-4 small text-white-50">Tunjukkan voucher ini ke kasir Seblak Salah saat berkunjung.</p>
+        <p class="mt-4 small text-white-50">Tunjukkan voucher ini ke kasir Seblak Salah.</p>
         <button onclick="location.reload()" class="btn btn-sm btn-outline-light mt-2">Kembali</button>
     </div>
 </div>
@@ -95,7 +95,7 @@
 <div id="voucherSection">
     <div id="vCapture" class="v-box">
         <div class="v-header">
-            <h5 class="font-weight-bold mb-0">VOUCHER LAUNCHING MIE</h5>
+            <h5 class="font-weight-bold mb-0">EXCLUSIVE VOUCHER</h5>
             <small style="letter-spacing: 2px;">SEBLAK SALAH INDONESIA</small>
         </div>
         <div class="v-body">
@@ -103,7 +103,7 @@
             <h4 class="font-weight-bold" id="resNama" style="color: #333;"></h4>
             <hr style="border-top: 2px solid #ff6600; width: 50px; margin: 15px auto;">
             <h5 class="font-weight-bold text-danger mb-1">BUY 1 GET 1 FREE</h5>
-            <p class="mb-1" style="font-size: 14px;">Beli All Varian Mie Kuah</p>
+            <p class="mb-1" style="font-size: 14px;">Beli Menu Utama Apa Saja</p>
             <h4 class="font-weight-bold" style="color: #ff6600;">GRATIS MIE CEREWET</h4>
             
             <div class="v-cut cut-left"></div>
@@ -124,11 +124,8 @@
         document.getElementById('extraFields').style.display = isMember ? 'none' : 'block';
         document.getElementById('tabMember').className = isMember ? 'btn btn-light btn-toggle flex-fill active-toggle' : 'btn btn-light btn-toggle flex-fill';
         document.getElementById('tabNonMember').className = isMember ? 'btn btn-light btn-toggle flex-fill' : 'btn btn-light btn-toggle flex-fill active-toggle';
-        
         const inputs = document.getElementById('extraFields').querySelectorAll('input');
-        inputs.forEach(input => {
-            input.required = !isMember;
-        });
+        inputs.forEach(input => { input.required = !isMember; });
     }
 
     document.getElementById('formKlaim').addEventListener('submit', e => {
