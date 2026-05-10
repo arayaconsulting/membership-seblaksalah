@@ -24,6 +24,7 @@
         .cut-left { left: -15px; } .cut-right { right: -15px; }
         #resultArea { display: none; text-align: center; margin-top: 20px; }
         #finalVoucher { max-width: 100%; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); border: 2px solid #ff6600; }
+        .instruction { background: rgba(255,102,0,0.1); border: 1px dashed #ff6600; border-radius: 15px; padding: 15px; margin-top: 20px; font-size: 13px; color: #333; }
     </style>
 </head>
 <body>
@@ -101,7 +102,7 @@
 </div>
 
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyYWWjEPsnPRtOdlUUJJSvcwAG91hTq2t6VXay6hi6wuSlOH8FoGEYDppb8_OCsnOvQ/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxYWWjEPsnPRtOdlUUJJSvcwAG91hTq2t6VXay6hi6wuSlOH8FoGEYDppb8_OCsnOvQ/exec';
 
     function switchTab(isMember) {
         document.getElementById('isMemberField').value = isMember;
@@ -136,8 +137,9 @@
                 btn.innerText = "AMBIL VOUCHER SEKARANG"; btn.disabled = false;
             }
         }).catch(err => {
-            alert('Sistem sibuk, coba lagi nanti.');
+            alert('Sistem sedang sibuk. Mohon pastikan Script sudah di-Deploy dengan benar sebagai "Anyone" dan berikan izin akses.');
             btn.disabled = false;
+            btn.innerText = "AMBIL VOUCHER SEKARANG";
         });
     });
 </script>
