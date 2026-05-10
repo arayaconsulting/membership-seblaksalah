@@ -32,7 +32,7 @@
         /* RESULT DISPLAY */
         #resultArea { display: none; text-align: center; margin-top: 20px; }
         #finalVoucher { max-width: 100%; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); border: 2px solid #ff6600; }
-        .instruction { background: rgba(255,102,0,0.1); border: 1px dashed #ff6600; border-radius: 15px; padding: 15px; margin-top: 20px; font-size: 13px; }
+        .instruction { background: rgba(255,102,0,0.1); border: 1px dashed #ff6600; border-radius: 15px; padding: 15px; margin-top: 20px; font-size: 13px; color: #333; }
     </style>
 </head>
 <body>
@@ -88,7 +88,7 @@
         </div>
         
         <p class="mt-4 small text-white-50">Tunjukkan voucher ini ke kasir Seblak Salah saat berkunjung.</p>
-        <button onclick="location.reload()" class="btn btn-sm btn-outline-light mt-2">Daftar Member Lain</button>
+        <button onclick="location.reload()" class="btn btn-sm btn-outline-light mt-2">Kembali</button>
     </div>
 </div>
 
@@ -117,8 +117,7 @@
 </div>
 
 <script>
-    // GANTI DENGAN URL APPS SCRIPT SEBLAK SALAH KAKAK
-    const scriptURL = 'PASTE_URL_APPS_SCRIPT_DISINI';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxYWWjEPsnPRtOdlUUJJSvcwAG91hTq2t6VXay6hi6wuSlOH8FoGEYDppb8_OCsnOvQ/exec';
 
     function switchTab(isMember) {
         document.getElementById('isMemberField').value = isMember;
@@ -126,7 +125,6 @@
         document.getElementById('tabMember').className = isMember ? 'btn btn-light btn-toggle flex-fill active-toggle' : 'btn btn-light btn-toggle flex-fill';
         document.getElementById('tabNonMember').className = isMember ? 'btn btn-light btn-toggle flex-fill' : 'btn btn-light btn-toggle flex-fill active-toggle';
         
-        // Atur required field untuk member baru
         const inputs = document.getElementById('extraFields').querySelectorAll('input');
         inputs.forEach(input => {
             input.required = !isMember;
@@ -147,7 +145,6 @@
                 document.getElementById('resKode').innerText = res.kode;
                 document.getElementById('mainForm').style.display = 'none';
 
-                // Proses Capture Voucher
                 setTimeout(() => {
                     html2canvas(document.getElementById('vCapture'), {
                         scale: 3,
@@ -166,7 +163,7 @@
             }
         })
         .catch(error => {
-            alert('Koneksi sibuk, silakan coba beberapa saat lagi.');
+            alert('Koneksi sibuk, silakan coba lagi.');
             btn.disabled = false;
             btn.innerText = "KLAIM VOUCHER SEKARANG";
         });
