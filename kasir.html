@@ -9,8 +9,8 @@
     <style>
         body { font-family: 'Montserrat', sans-serif; background-color: #121212; color: #fff; padding-bottom: 50px; }
         .main-container { max-width: 500px; margin: auto; padding: 15px; }
-        .logo-wrap { width: 90px; height: 90px; background: #000; border-radius: 50%; margin: 20px auto 15px; display: flex; align-items: center; justify-content: center; border: 3px solid #ff6600; overflow: hidden; padding: 5px; box-shadow: 0 0 20px rgba(255, 102, 0, 0.3); }
-        .logo-img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .logo-wrap { width: 100px; height: 100px; background: #000; border-radius: 50%; margin: 20px auto 15px; display: flex; align-items: center; justify-content: center; border: 3px solid #ff6600; overflow: hidden; padding: 5px; box-shadow: 0 0 20px rgba(255, 102, 0, 0.4); }
+        .logo-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
         .nav-pills { background: #222; border-radius: 15px; padding: 5px; margin-bottom: 25px; border: 1px solid #333; }
         .nav-pills .nav-link { color: #fff; font-weight: 700; border-radius: 12px; font-size: 13px; transition: 0.3s; }
         .nav-pills .nav-link.active { background: #ff6600 !important; color: #fff; }
@@ -27,7 +27,9 @@
 <body>
 
 <div class="main-container text-center">
-    <div class="logo-wrap shadow"><img src="https://ui-avatars.com/api/?name=Seblak+Salah&background=ff6600&color=fff&bold=true" class="logo-img"></div>
+    <div class="logo-wrap shadow">
+        <img src="https://lh3.googleusercontent.com/d/10pxYP4lO10SQxGrjLpfSr1yIatsftgkq" class="logo-img" alt="Logo Seblak Salah">
+    </div>
     <h4 class="font-weight-bold mb-0" style="letter-spacing: 2px;">SEBLAK SALAH</h4>
     <p class="small text-white-50 mb-4 text-uppercase">Panel Kasir & CRM</p>
     
@@ -100,7 +102,6 @@
 <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxYWWjEPsnPRtOdlUUJJSvcwAG91hTq2t6VXay6hi6wuSlOH8FoGEYDppb8_OCsnOvQ/exec';
     
-    // FUNGSI BARU: Hapus notif setelah klik
     function archiveNotif(noHP, waURL) {
         window.open(waURL, '_blank');
         fetch(scriptURL + "?action=konfirmasiSapaan&hp=" + noHP, { method: 'POST' })
@@ -109,7 +110,6 @@
         });
     }
 
-    // Logic Simpan Poin
     document.getElementById('formPoin').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('btnSimpanPoin');
@@ -128,7 +128,6 @@
         });
     });
 
-    // Logic Cek Member
     document.getElementById('formVoucher').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('btnCekMember');
@@ -151,11 +150,9 @@
         });
     });
 
-    // Fungsi Load Reminder
     function loadReminders() {
         const list = document.getElementById('reminderList');
         list.innerHTML = "<p class='text-center text-white-50 small py-4'>Memperbarui data...</p>";
-        
         fetch(scriptURL + "?action=getReminders")
         .then(res => res.json())
         .then(data => {
@@ -172,7 +169,7 @@
                         <span class="badge-notif">${item.tipe}</span>
                         <div class="font-weight-bold mt-1 text-white">${item.nama}</div>
                     </div>
-                    <button onclick="archiveNotif('${item.wa}', '${waURL}')" class="btn btn-sm btn-primary" style="font-weight:700; border-radius:8px;">SAPA WA</button>
+                    <button onclick="archiveNotif('${item.hp}', '${waURL}')" class="btn btn-sm btn-primary" style="font-weight:700; border-radius:8px;">SAPA WA</button>
                 </div>`;
             });
         });
