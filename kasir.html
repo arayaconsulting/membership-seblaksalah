@@ -27,7 +27,7 @@
 <body>
 
 <div class="main-container text-center">
-    <div class="logo-wrap shadow"><img src="https://lh3.googleusercontent.com/d/1-0_04BL6_Cyuxjc1yDnHpzKen76H6D1X" class="logo-img"></div>
+    <div class="logo-wrap shadow"><img src="https://ui-avatars.com/api/?name=Seblak+Salah&background=ff6600&color=fff&bold=true" class="logo-img"></div>
     <h4 class="font-weight-bold mb-0" style="letter-spacing: 2px;">SEBLAK SALAH</h4>
     <p class="small text-white-50 mb-4 text-uppercase">Panel Kasir & CRM</p>
     
@@ -100,15 +100,11 @@
 <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxYWWjEPsnPRtOdlUUJJSvcwAG91hTq2t6VXay6hi6wuSlOH8FoGEYDppb8_OCsnOvQ/exec';
     
-    // Fungsi baru untuk mengkonfirmasi sapaan agar notif hilang
+    // FUNGSI BARU: Hapus notif setelah klik
     function archiveNotif(noHP, waURL) {
-        // Buka WhatsApp di tab baru
         window.open(waURL, '_blank');
-        
-        // Kirim data ke server untuk update kolom L
         fetch(scriptURL + "?action=konfirmasiSapaan&hp=" + noHP, { method: 'POST' })
         .then(() => {
-            // Beri waktu sebentar lalu refresh daftar reminder
             setTimeout(() => { loadReminders(); }, 1000);
         });
     }
@@ -118,7 +114,6 @@
         e.preventDefault();
         const btn = document.getElementById('btnSimpanPoin');
         btn.innerText = "Memproses..."; btn.disabled = true;
-        
         fetch(scriptURL, { method: 'POST', body: new FormData(this)})
         .then(res => res.json())
         .then(res => {
@@ -159,7 +154,7 @@
     // Fungsi Load Reminder
     function loadReminders() {
         const list = document.getElementById('reminderList');
-        list.innerHTML = "<p class='text-center text-white-50 small py-4'>Memperbarui agenda...</p>";
+        list.innerHTML = "<p class='text-center text-white-50 small py-4'>Memperbarui data...</p>";
         
         fetch(scriptURL + "?action=getReminders")
         .then(res => res.json())
@@ -170,14 +165,14 @@
                 return;
             }
             data.forEach(item => {
-                const waURL = "https://wa.me/" + item.wa + "?text=" + encodeURIComponent(item.pesan);
+                const waURL = `https://wa.me/${item.wa}?text=${encodeURIComponent(item.pesan)}`;
                 list.innerHTML += `
                 <div class="reminder-box d-flex justify-content-between align-items-center">
                     <div>
                         <span class="badge-notif">${item.tipe}</span>
                         <div class="font-weight-bold mt-1 text-white">${item.nama}</div>
                     </div>
-                    <button onclick="archiveNotif('${item.hp}', '${waURL}')" class="btn btn-sm btn-primary" style="font-weight:700; border-radius:8px;">SAPA WA</button>
+                    <button onclick="archiveNotif('${item.wa}', '${waURL}')" class="btn btn-sm btn-primary" style="font-weight:700; border-radius:8px;">SAPA WA</button>
                 </div>`;
             });
         });
