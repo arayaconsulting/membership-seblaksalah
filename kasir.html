@@ -11,23 +11,15 @@
         .main-container { max-width: 500px; margin: auto; padding: 15px; }
         .logo-wrap { width: 90px; height: 90px; background: #000; border-radius: 50%; margin: 20px auto 15px; display: flex; align-items: center; justify-content: center; border: 3px solid #ff6600; overflow: hidden; padding: 5px; box-shadow: 0 0 20px rgba(255, 102, 0, 0.3); }
         .logo-img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        
-        /* Tab Navigation */
         .nav-pills { background: #222; border-radius: 15px; padding: 5px; margin-bottom: 25px; border: 1px solid #333; }
         .nav-pills .nav-link { color: #fff; font-weight: 700; border-radius: 12px; font-size: 13px; transition: 0.3s; }
         .nav-pills .nav-link.active { background: #ff6600 !important; color: #fff; }
-        
-        /* Card Styling */
         .card-custom { background: #fff; border-radius: 20px; color: #333; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden; }
         .btn-judes { background: #ff6600; color: #fff; border-radius: 12px; font-weight: 800; padding: 12px; border: none; width: 100%; }
         .btn-success-custom { background: #27ae60; color: #fff; border-radius: 12px; font-weight: 800; padding: 12px; border: none; width: 100%; }
-        
         #resultPoin, #resultVoucher { display: none; border-radius: 15px; }
-        
-        /* Reminder Section */
-        .reminder-box { background: #1a1a1a; border: 1px solid #333; border-radius: 15px; padding: 15px; margin-bottom: 10px; }
+        .reminder-box { background: #1a1a1a; border: 1px solid #333; border-radius: 15px; padding: 15px; margin-bottom: 10px; transition: 0.3s; }
         .badge-notif { background: #ff6600; font-size: 10px; padding: 4px 8px; border-radius: 5px; color: #fff; text-transform: uppercase; font-weight: 800; }
-        
         .form-control { border-radius: 10px; border: 1px solid #ddd; padding: 12px; }
         label { font-size: 11px; letter-spacing: 1px; color: #666; font-weight: 800; margin-bottom: 5px; }
     </style>
@@ -35,11 +27,11 @@
 <body>
 
 <div class="main-container text-center">
-    <div class="logo-wrap shadow"><img src="https://lh3.googleusercontent.com/d/10pxYP4lO10SQxGrjLpfSr1yIatsftgkq" class="logo-img"></div>
+    <div class="logo-wrap shadow"><img src="https://lh3.googleusercontent.com/d/1-0_04BL6_Cyuxjc1yDnHpzKen76H6D1X" class="logo-img"></div>
     <h4 class="font-weight-bold mb-0" style="letter-spacing: 2px;">SEBLAK SALAH</h4>
     <p class="small text-white-50 mb-4 text-uppercase">Panel Kasir & CRM</p>
     
-    <ul class="nav nav-pills nav-fill shadow-sm" id="pills-tab" role="tablist">
+    <ul class="nav nav-pills nav-fill shadow-sm" role="tablist">
         <li class="nav-item"><a class="nav-link active" data-toggle="pill" href="#tab-poin">INPUT POIN</a></li>
         <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#tab-voucher">CEK DATA</a></li>
     </ul>
@@ -108,6 +100,19 @@
 <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxYWWjEPsnPRtOdlUUJJSvcwAG91hTq2t6VXay6hi6wuSlOH8FoGEYDppb8_OCsnOvQ/exec';
     
+    // Fungsi baru untuk mengkonfirmasi sapaan agar notif hilang
+    function archiveNotif(noHP, waURL) {
+        // Buka WhatsApp di tab baru
+        window.open(waURL, '_blank');
+        
+        // Kirim data ke server untuk update kolom L
+        fetch(scriptURL + "?action=konfirmasiSapaan&hp=" + noHP, { method: 'POST' })
+        .then(() => {
+            // Beri waktu sebentar lalu refresh daftar reminder
+            setTimeout(() => { loadReminders(); }, 1000);
+        });
+    }
+
     // Logic Simpan Poin
     document.getElementById('formPoin').addEventListener('submit', function(e) {
         e.preventDefault();
@@ -123,9 +128,7 @@
                 document.getElementById('resPoinTotal').innerText = res.totalPoin + " POIN";
                 document.getElementById('btnWA').href = "https://wa.me/" + res.wa + "?text=" + encodeURIComponent(res.pesan);
                 this.reset();
-            } else { 
-                alert(res.message); 
-            }
+            } else { alert(res.message); }
             btn.innerText = "SIMPAN POIN"; btn.disabled = false;
         });
     });
@@ -135,7 +138,6 @@
         e.preventDefault();
         const btn = document.getElementById('btnCekMember');
         btn.innerText = "Mengecek..."; btn.disabled = true;
-        
         fetch(scriptURL, { method: 'POST', body: new FormData(this)})
         .then(res => res.json())
         .then(res => {
@@ -154,31 +156,34 @@
         });
     });
 
-    // Logic Load Reminder Otomatis
-    window.onload = () => {
+    // Fungsi Load Reminder
+    function loadReminders() {
+        const list = document.getElementById('reminderList');
+        list.innerHTML = "<p class='text-center text-white-50 small py-4'>Memperbarui agenda...</p>";
+        
         fetch(scriptURL + "?action=getReminders")
         .then(res => res.json())
         .then(data => {
-            const list = document.getElementById('reminderList');
-            document.getElementById('loadingMsg').style.display = 'none';
-            
+            list.innerHTML = "";
             if(data.length === 0) {
                 list.innerHTML = "<p class='text-center text-white-50 small py-4'>Tidak ada agenda sapa hari ini.</p>";
                 return;
             }
-            
             data.forEach(item => {
+                const waURL = "https://wa.me/" + item.wa + "?text=" + encodeURIComponent(item.pesan);
                 list.innerHTML += `
                 <div class="reminder-box d-flex justify-content-between align-items-center">
                     <div>
                         <span class="badge-notif">${item.tipe}</span>
                         <div class="font-weight-bold mt-1 text-white">${item.nama}</div>
                     </div>
-                    <a href="https://wa.me/${item.wa}?text=${encodeURIComponent(item.pesan)}" target="_blank" class="btn btn-sm btn-primary" style="font-weight:700;">SAPA WA</a>
+                    <button onclick="archiveNotif('${item.hp}', '${waURL}')" class="btn btn-sm btn-primary" style="font-weight:700; border-radius:8px;">SAPA WA</button>
                 </div>`;
             });
         });
-    };
+    }
+
+    window.onload = loadReminders;
 </script>
 </body>
 </html>
