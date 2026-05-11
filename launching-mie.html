@@ -10,11 +10,17 @@
     <style>
         body { font-family: 'Montserrat', sans-serif; background-color: #121212; color: #fff; }
         .main-container { max-width: 450px; margin: auto; padding: 20px; }
+        
+        /* Logo Styling */
+        .logo-main { width: 100px; height: 100px; background: #000; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; border: 3px solid #ff6600; overflow: hidden; padding: 5px; box-shadow: 0 0 20px rgba(255, 102, 0, 0.4); }
+        .logo-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+
         .card-promo { background: #fff; border-radius: 25px; color: #333; padding: 25px; border: none; }
         .btn-toggle { border-radius: 10px; font-weight: 700; font-size: 11px; transition: 0.3s; height: 45px; }
         .active-toggle { background: #ff6600 !important; color: #fff !important; box-shadow: 0 4px 10px rgba(255, 102, 0, 0.3); }
         .form-control { border-radius: 10px; padding: 12px; font-size: 14px; }
         .btn-submit { background: #ff6600; color: #fff; border-radius: 12px; font-weight: 800; padding: 15px; border: none; width: 100%; margin-top: 15px; }
+        
         #voucherSection { position: fixed; left: -9999px; top: 0; }
         .v-box { background: #fff; width: 380px; color: #333; border-radius: 20px; overflow: hidden; border: 4px solid #ff6600; }
         .v-header { background: #ff6600; color: #fff; padding: 20px; text-align: center; }
@@ -24,13 +30,16 @@
         .cut-left { left: -15px; } .cut-right { right: -15px; }
         #resultArea { display: none; text-align: center; margin-top: 20px; }
         #finalVoucher { max-width: 100%; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); border: 2px solid #ff6600; }
-        .instruction { background: rgba(255,102,0,0.1); border: 1px dashed #ff6600; border-radius: 15px; padding: 15px; margin-top: 20px; font-size: 13px; color: #333; }
     </style>
 </head>
 <body>
 
 <div class="main-container text-center">
-    <div class="mb-4 mt-3">
+    <div class="logo-main shadow">
+        <img src="https://lh3.googleusercontent.com/d/10pxYP4lO10SQxGrjLpfSr1yIatsftgkq" class="logo-img" alt="Logo Seblak Salah">
+    </div>
+
+    <div class="mb-4">
         <h2 class="font-weight-bold" style="color: #ff6600; letter-spacing: 1px;">BOOKING PROMO! 🔥</h2>
         <p class="small text-white-50">Beli Menu Utama Apa Saja,<br><b>GRATIS Mie Cerewet!</b></p>
     </div>
@@ -83,7 +92,10 @@
 
 <div id="voucherSection">
     <div id="vCapture" class="v-box">
-        <div class="v-header"><h5 class="font-weight-bold mb-0">EXCLUSIVE VOUCHER</h5><small>SEBLAK SALAH INDONESIA</small></div>
+        <div class="v-header">
+            <h5 class="font-weight-bold mb-0">EXCLUSIVE VOUCHER</h5>
+            <small>SEBLAK SALAH INDONESIA</small>
+        </div>
         <div class="v-body">
             <p class="mb-1 small text-muted text-uppercase">Nama Member:</p>
             <h4 class="font-weight-bold" id="resNama" style="color: #333;"></h4>
@@ -137,7 +149,7 @@
                 btn.innerText = "AMBIL VOUCHER SEKARANG"; btn.disabled = false;
             }
         }).catch(err => {
-            alert('Sistem sedang sibuk. Mohon pastikan Script sudah di-Deploy dengan benar sebagai "Anyone" dan berikan izin akses.');
+            alert('Sistem sedang sibuk. Mohon pastikan link Apps Script Kakak sudah benar.');
             btn.disabled = false;
             btn.innerText = "AMBIL VOUCHER SEKARANG";
         });
