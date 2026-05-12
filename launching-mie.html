@@ -3,24 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking Promo - Seblak Salah</title>
+    <title>Booking Promo Gratis - Seblak Salah</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         body { font-family: 'Montserrat', sans-serif; background-color: #121212; color: #fff; }
         .main-container { max-width: 450px; margin: auto; padding: 20px; }
-        
-        /* Logo Styling */
         .logo-main { width: 100px; height: 100px; background: #000; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; border: 3px solid #ff6600; overflow: hidden; padding: 5px; box-shadow: 0 0 20px rgba(255, 102, 0, 0.4); }
         .logo-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-
         .card-promo { background: #fff; border-radius: 25px; color: #333; padding: 25px; border: none; }
         .btn-toggle { border-radius: 10px; font-weight: 700; font-size: 11px; transition: 0.3s; height: 45px; }
         .active-toggle { background: #ff6600 !important; color: #fff !important; box-shadow: 0 4px 10px rgba(255, 102, 0, 0.3); }
         .form-control { border-radius: 10px; padding: 12px; font-size: 14px; }
         .btn-submit { background: #ff6600; color: #fff; border-radius: 12px; font-weight: 800; padding: 15px; border: none; width: 100%; margin-top: 15px; }
-        
         #voucherSection { position: fixed; left: -9999px; top: 0; }
         .v-box { background: #fff; width: 380px; color: #333; border-radius: 20px; overflow: hidden; border: 4px solid #ff6600; }
         .v-header { background: #ff6600; color: #fff; padding: 20px; text-align: center; }
@@ -36,12 +32,12 @@
 
 <div class="main-container text-center">
     <div class="logo-main shadow">
-        <img src="https://lh3.googleusercontent.com/d/10pxYP4lO10SQxGrjLpfSr1yIatsftgkq" class="logo-img" alt="Logo Seblak Salah">
+        <img src="https://ui-avatars.com/api/?name=Seblak+Salah&background=ff6600&color=fff&bold=true" class="logo-img" alt="Logo Seblak Salah">
     </div>
 
     <div class="mb-4">
-        <h2 class="font-weight-bold" style="color: #ff6600; letter-spacing: 1px;">BOOKING PROMO! 🔥</h2>
-        <p class="small text-white-50">Beli Menu Utama Apa Saja,<br><b>GRATIS Mie Cerewet!</b></p>
+        <h2 class="font-weight-bold" style="color: #ff6600; letter-spacing: 1px;">100 PORSI GRATIS! 🔥</h2>
+        <p class="small text-white-50">Tanpa Syarat! Booking Sekarang.<br><b>Khusus Makan di Tempat (Dine-In)</b></p>
     </div>
 
     <div id="mainForm" class="card-promo shadow-lg">
@@ -69,13 +65,13 @@
                 <label class="small font-weight-bold text-danger">PILIH TANGGAL KEDATANGAN:</label>
                 <select name="pilihan_tanggal" class="form-control" required style="border: 2px solid #ff6600; font-weight: bold;">
                     <option value="" disabled selected>-- Klik Pilih Tanggal --</option>
-                    <option value="14">14 MEI 2026</option>
                     <option value="15">15 MEI 2026</option>
+                    <option value="16">16 MEI 2026</option>
                 </select>
                 <small class="text-muted mt-1 d-block" style="font-size: 10px;">*Kuota terbatas 50 porsi gratis per hari</small>
             </div>
 
-            <button type="submit" id="btnSubmit" class="btn-submit shadow">AMBIL VOUCHER SEKARANG</button>
+            <button type="submit" id="btnSubmit" class="btn-submit shadow">AMBIL PORSI GRATIS SAYA!</button>
         </form>
     </div>
 
@@ -93,16 +89,16 @@
 <div id="voucherSection">
     <div id="vCapture" class="v-box">
         <div class="v-header">
-            <h5 class="font-weight-bold mb-0">EXCLUSIVE VOUCHER</h5>
+            <h5 class="font-weight-bold mb-0">FREE MIE VOUCHER</h5>
             <small>SEBLAK SALAH INDONESIA</small>
         </div>
         <div class="v-body">
             <p class="mb-1 small text-muted text-uppercase">Nama Member:</p>
             <h4 class="font-weight-bold" id="resNama" style="color: #333;"></h4>
             <hr style="border-top: 2px solid #ff6600; width: 50px; margin: 15px auto;">
-            <h5 class="font-weight-bold text-danger mb-1">BUY 1 GET 1 FREE</h5>
-            <p class="mb-1" style="font-size: 14px;">Beli Menu Utama Apa Saja</p>
-            <h4 class="font-weight-bold" style="color: #ff6600;">GRATIS MIE CEREWET</h4>
+            <h2 class="font-weight-bold text-danger mb-0">100% GRATIS</h2>
+            <h4 class="font-weight-bold" style="color: #ff6600;">MIE CEREWET</h4>
+            <p class="mb-0 small text-muted">*Khusus Makan di Tempat (Dine-In)</p>
             <div class="v-cut cut-left"></div><div class="v-cut cut-right"></div>
         </div>
         <div class="v-footer">
@@ -146,12 +142,12 @@
                 }, 500);
             } else {
                 alert(res.message);
-                btn.innerText = "AMBIL VOUCHER SEKARANG"; btn.disabled = false;
+                btn.innerText = "AMBIL PORSI GRATIS SAYA!"; btn.disabled = false;
             }
         }).catch(err => {
-            alert('Sistem sedang sibuk. Mohon pastikan link Apps Script Kakak sudah benar.');
+            alert('Sistem sedang sibuk. Mohon coba lagi nanti.');
             btn.disabled = false;
-            btn.innerText = "AMBIL VOUCHER SEKARANG";
+            btn.innerText = "AMBIL PORSI GRATIS SAYA!";
         });
     });
 </script>
